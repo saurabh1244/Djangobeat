@@ -1,0 +1,281 @@
+{% load static %}
+<!DOCTYPE html><html lang="en" itemscope="" itemtype="https://schema.org/Article" class="dark"><head prefix="og: http://ogp.me/ns#">
+    <meta name="description" content="In the realm of web development, Django stands as a powerful and versatile framework for building robust applications. One of the key aspects of developing e"><title>How to Use Subquery() in Django With Practical Examples</title><meta property="og:title" content="How to Use Subquery() in Django With Practical Examples"><meta property="og:description" content="In the realm of web development, Django stands as a powerful and versatile framework for building robust applications. One of the key aspects of developing e"><meta property="og:type" content="Article"><meta name="twitter:domain" content="localhost"><meta name="twitter:card" content="Summary"><meta name="twitter:title" content="How to Use Subquery() in Django With Practical Examples"><meta name="twitter:description" content="In the realm of web development, Django stands as a powerful and versatile framework for building robust applications. One of the key aspects of developing e"><meta itemprop="name" content="How to Use Subquery() in Django With Practical Examples"><meta itemprop="description" content="In the realm of web development, Django stands as a powerful and versatile framework for building robust applications. One of the key aspects of developing e">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" type="image/png" href="{% static 'images/favicon.png' %}">
+    <script>
+                    if (localStorage.theme === 'dark' || (!('theme' in localStorage))) {
+                        document.documentElement.classList.add('dark')
+                    } else {
+                        document.documentElement.classList.remove('dark')
+                    }
+    
+                    setInterval(function() {
+                        if (!window.adsbygoogle?.loaded) {
+                            document.getElementById('supportModal').showModal();
+                        }
+                    }, 60000);
+    
+    
+                </script>
+    <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-111350231-3"></script>
+    <script defer="" src="{% static 'js/base.js' %}"></script>
+    <script defer="" src="{% static 'js/alpinejs.js' %}"></script>
+    <script async="" src="{% static 'js/adsbygoogle.js' %}" crossorigin="anonymous"></script>
+    <script src="{% static 'js/monetization.js' %}" type="text/javascript"></script>
+    <title>How to Use Subquery() in Django With Practical Examples</title>
+    <link rel="stylesheet" href="{% static 'css/github-dark.min.css' %}">
+    <script>
+            setInterval(function() {
+                if (!window.adsbygoogle?.loaded) {
+                    document.getElementById('supportModal').showModal();
+                }
+            }, 60000);
+    
+        </script>
+    <script>
+            // JavaScript code for sticky header and completing line
+            document.addEventListener('DOMContentLoaded', function() {
+                const header = document.querySelector('.header');
+                const articleContent = document.querySelector('.article-content');
+                const completingLine = document.getElementById('completing-line');
+                let scrolledPercentage = 0;
+    
+                function updateStickyHeader() {
+                    header.classList.toggle('sticky', window.scrollY > 0);
+                }
+    
+                function updateCompletingLine() {
+                    const contentHeight = articleContent.offsetHeight;
+                    const windowHeight = window.innerHeight;
+                    const scrolled = window.scrollY;
+    
+                    if (contentHeight > windowHeight) {
+                        scrolledPercentage = (scrolled / (contentHeight - windowHeight)) * 100;
+                    } else {
+                        scrolledPercentage = 100;
+                    }
+    
+                    completingLine.style.width = scrolledPercentage + '%';
+                }
+    
+                window.addEventListener('scroll', updateStickyHeader);
+                window.addEventListener('scroll', updateCompletingLine);
+            });
+        </script>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    </head>
+
+    <body class="bg-gray-50 dark:bg-slate-800 dark:text-gray-300"></body>
+
+
+    
+
+
+    
+
+<div class="w-full sticky top-0 z-50 text-gray-700 bg-white dark:text-white dark:text-gray-200 dark:bg-slate-900">
+    <div x-data="{ open: false }" class="flex flex-col max-w-screen-xl px-2 mx-auto md:items-center md:justify-between md:flex-row md:px-6 lg:px-8">
+    <div class="p-4 flex flex-row items-center justify-between">
+    <a href="/" class="flex title-font font-medium items-center text-gray-900">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-10 h-10 text-white p-1 bg-emerald-600 rounded-full" viewBox="0 0 24 24">
+    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+    <circle cx="12" cy="12" r="1"></circle>
+    <path d="M16.924 11.132a5 5 0 1 0 -4.056 5.792"></path>
+    <path d="M3 12a9 9 0 1 0 9 -9"></path>
+    </svg>
+    <span class="ml-3 font-bold text-xl dark:text-gray-100 ">DjangoBeat</span>
+    </a>
+    <div class="mt-1 ml-4">
+    <button type="button" aria-label="dark-mode-toggle" x-data="{
+                                            toggle: () => {
+                                            if (localStorage.theme === 'dark') {
+                                            localStorage.theme = 'light';
+                                            document.documentElement.classList.remove('dark');
+                                            } else {
+                                            localStorage.theme = 'dark';
+                                            document.documentElement.classList.add('dark');
+                                            }
+                                            },
+                                            }" @click="toggle" class="text-emerald-500 flex justify-center p-2 text-gray-500 transition duration-150 ease-in-out bg-gray-100 border border-transparent rounded-md lg:bg-white  dark:bg-slate-800   focus:outline-none bg-gray-50 dark:bg-slate-700 ">
+    <span>
+    <svg class="w-6 h-6 text-yellow-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+    <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd"></path>
+    </svg>
+    </span>
+    </button>
+    </div>
+    <button aria-label="mobile-menu" class="md:hidden rounded-lg focus:outline-none focus:shadow-outline" @click="open = !open">
+    <svg fill="currentColor" viewBox="0 0 20 20" class="w-6 h-6">
+    <path x-show="!open" fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM9 15a1 1 0 011-1h6a1 1 0 110 2h-6a1 1 0 01-1-1z" clip-rule="evenodd"></path>
+    <path x-show="open" fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+    </svg>
+    </button>
+    </div>
+    <nav :class="{'flex': open, 'hidden': !open}" class="flex-col flex-grow pb-4 md:pb-0 hidden md:flex md:justify-end md:flex-row">
+    <a class="md:mt-0 mt-3 px-3 py-2" href="/articles/">Articles</a>
+    <a class=" md:mt-0 mt-3 px-3 py-2" href="/madewithdjango/all/">MadewithDjango</a>
+    <a class=" md:mt-0 mt-3 px-3 py-2" href="/books/all/">Books</a>
+    <a class=" md:mt-0 mt-3 px-3 py-2" href="/podcasts/all/">Podcasts</a>
+    <a class=" md:mt-0 mt-3 px-3 py-2" href="/courses/all/">Courses</a>
+    <a class=" md:mt-0 mt-3 px-3 py-2" href="/tools/notepad/">Notepad</a>
+    </nav>
+    </div>
+    </div>
+
+
+    
+    {% block content2 %}
+        
+    {% endblock content2 %}
+
+
+   
+
+<footer class="text-gray-600 body-font bg-white dark:bg-slate-900 ">
+    <div class="container px-4 py-24 mx-auto">
+    <div class="flex flex-wrap md:text-left  order-first">
+    <div class="lg:w-1/4 md:w-1/2 w-full px-4">
+    <h2 class="font-semibold text-gray-900 dark:text-gray-100  text-lg mb-3">Resources</h2>
+    <ul class="list-none mb-10 ">
+    <li class="my-2">
+    <a href="/sitemap.xml/" class="text-gray-600 dark:text-gray-300 dark:hover:text-gray-100 hover:text-gray-800">Sitemap</a>
+    </li>
+    <li class="my-2">
+    <a href="/feed/" class="text-gray-600 dark:text-gray-300 dark:hover:text-gray-100 hover:text-gray-800">RSS feed</a>
+    </li>
+    <li class="my-2">
+    <a href="https://github.com/TheAbhijeet/djangocentral-bugs-and-features" target="_blank" rel="nofollow noopener" class="text-gray-600 dark:text-gray-300 dark:hover:text-gray-100 hover:text-gray-800">Feature request</a>
+    </li>
+    <li class="my-2">
+    <a href="https://github.com/TheAbhijeet/djangocentral-bugs-and-features" target="_blank" rel="nofollow noopener" class="text-gray-600 dark:text-gray-300 dark:hover:text-gray-100 hover:text-gray-800">Report bug</a>
+    </li>
+    </ul>
+    </div>
+    <div class="lg:w-1/4 md:w-1/2 w-full px-4">
+    <h2 class="font-semibold text-gray-900 dark:text-gray-100  text-lg mb-3">Pages</h2>
+    <ul class="list-none mb-10 ">
+    <li class="my-2">
+    <a href="/pages/about-us/" class="text-gray-600 dark:text-gray-300 dark:hover:text-gray-100 hover:text-gray-800">About us</a>
+    </li>
+    <li class="my-2">
+    <a href="/pages/contact-us/" class="text-gray-600 dark:text-gray-300 dark:hover:text-gray-100 hover:text-gray-800">Contact us</a>
+    </li>
+    <li class="my-2">
+    <a href="/pages/privacy-policy/" class="text-gray-600 dark:text-gray-300 dark:hover:text-gray-100 hover:text-gray-800">Privacy policy</a>
+    </li>
+    <li class="my-2">
+    <a href="/pages/terms-and-conditions/" class="text-gray-600 dark:text-gray-300 dark:hover:text-gray-100 hover:text-gray-800">Terms and conditions </a>
+    </li>
+    </ul>
+    </div>
+    <div class="lg:w-1/4 md:w-1/2 w-full px-4">
+    <h2 class="font-semibold text-gray-900 dark:text-gray-100  text-lg mb-3">Explore</h2>
+    <ul class="list-none mb-10">
+    <li class="my-2">
+    <a class="dark:text-gray-300 dark:hover:text-gray-100 text-gray-600 hover:text-gray-800" href="/articles/">Articles</a>
+    </li>
+    <li class="my-2">
+    <a class="dark:text-gray-300 dark:hover:text-gray-100 text-gray-600 hover:text-gray-800" href="/djangoprojects/">DjangoProjects</a>
+    </li>
+    <li class="my-2">
+    <a class="dark:text-gray-300 dark:hover:text-gray-100 text-gray-600 hover:text-gray-800" href="/portfolio/">Portfolio</a>
+    </li>
+    <li class="my-2">
+    <a class="dark:text-gray-300 dark:hover:text-gray-100 text-gray-600 hover:text-gray-800" href="/Contact/">Contact</a>
+    </li>
+  
+    </ul>
+    </div>
+    <div class="lg:w-1/4 md:w-1/2 w-full px-4">
+    <h2 class="font-semibold text-gray-900 dark:text-gray-100  text-lg mb-3">MadewithDjango</h2>
+    <ul class="list-none mb-10">
+    <li class="my-2">
+    <a class="dark:text-gray-300 dark:hover:text-gray-100 text-gray-600 hover:text-gray-800" href="/madewithdjango/submit-project/">Submit a project</a>
+    </li>
+    <li class="my-2">
+    <a class="dark:text-gray-300 dark:hover:text-gray-100 text-gray-600 hover:text-gray-800" href="/madewithdjango/tag/social-media">Social Media</a>
+    </li>
+    <li class="my-2">
+    <a class="dark:text-gray-300 dark:hover:text-gray-100 text-gray-600 hover:text-gray-800" href="/madewithdjango/open-sourced/">Open Source projects</a>
+    </li>
+    <li class="my-2">
+    <a class="dark:text-gray-300 dark:hover:text-gray-100 text-gray-600 hover:text-gray-800" href="/madewithdjango/tag/edtech">Edtech</a>
+    </li>
+    <li class="my-2">
+    <a class="dark:text-gray-300 dark:hover:text-gray-100 text-gray-600 hover:text-gray-800" href="/madewithdjango/tag/fintech">Fintech</a>
+    </li>
+    </ul>
+    </div>
+    </div>
+    </div>
+    
+    <div class="bg-gray-100 dark:bg-slate-800">
+    <div x-data="{ year: new Date().getFullYear() }" class="container px-5 py-6 lg:mx-auto flex items-center sm:flex-row flex-col">
+    <p aria-label="copyright" class="text-sm text-gray-500 dark:text-gray-400 sm:ml-6 sm:mt-0 mt-4">© <span x-text="year"></span> —
+    </p><p class="text-gray-600 dark:text-gray-400 ml-1" target="_blank">djangocentral |
+    <span class="text-xs"> Djangocentral is not associated with the DSF | Django is a registered trademark of the Django Software Foundation </span></p>
+    <p></p>
+    </div>
+    </div>
+    <div class="fixed flex-col hidden gap-3 right-8 bottom-8 md:flex">
+    <button x-data="" @click="window.scroll({top:0,left:0,behavior: 'smooth'})" aria-label="Scroll To Top" type="button" class="p-2  rounded-full text-white bg-emerald-600 hover:bg-emerald-800">
+    <svg class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
+    <path fill-rule="evenodd" d="M3.293 9.707a1 1 0 010-1.414l6-6a1 1 0 011.414 0l6 6a1 1 0 01-1.414 1.414L11 5.414V17a1 1 0 11-2 0V5.414L4.707 9.707a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+    </svg>
+    </button>
+    </div>
+    
+     
+
+
+
+
+    
+
+</footer>
+<script>
+            (function(){
+                if(typeof _bsa !== 'undefined' && _bsa) {
+                    _bsa.init('flexbar', 'CWYDP27N', 'placement:djangocentralcom');
+                }
+            })();
+        </script>
+<script src="js/highlight.min.js"></script>
+<script src="js/highlightjs-copy.min.js"></script>
+<script>
+        hljs.addPlugin(new CopyButtonPlugin());
+
+        hljs.highlightAll();
+
+    </script>
+<script type="text/javascript">
+
+        var disqus_shortname = "https-djangocentral-com";
+
+        
+        var disqus_url = "http://djangocentral.com/how-to-use-subquery-in-django/";
+        var disqus_identifier = "http://djangocentral.com/how-to-use-subquery-in-django/";
+
+        var disqus_loaded = false;
+        function disqus() {
+
+            if (!disqus_loaded)  {
+                // This is to ensure that Disqus widget is loaded only once
+                disqus_loaded = true;
+
+                var e = document.createElement("script");
+                e.type = "text/javascript";
+                e.async = true;
+                e.src = "//" + disqus_shortname + ".disqus.com/embed.js";
+                (document.getElementsByTagName("head")[0] ||
+                    document.getElementsByTagName("body")[0])
+                    .appendChild(e);
+            }
+        }
+    </script>
+
+
+</body></html>

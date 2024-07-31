@@ -1,0 +1,107 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+
+
+{% block content %}
+    
+
+
+
+
+<div class="content overflow-hidden">
+<div class="dark:bg-slate-800 dark:text-gray-300">
+
+
+<section class="text-gray-600 body-font bg-white dark:bg-slate-900">
+<div class="container mx-auto flex md:px-24 md:py-10 md:flex-row flex-col items-center">
+<div class="lg:flex-grow mt-5 md:mt-0   md:w-1.5/2 lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">
+<h1 class="text-2xl font-extrabold leading-9 tracking-tight mb-3 text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-5xl md:leading-normal">DjangoBeat
+</h1>
+<p class="mb-8 md:pl-0  pl-2 pr-2 leading-relaxed dark:text-gray-300">
+
+    DjangoBeat is a blog dedicated to Django and Python, providing clear tutorials, practical tips, and insights on web development. We cover everything from Django basics to advanced techniques. Look out for future articles on integrating React and Angular for full-stack development. 
+
+</p>
+<div class="flex justify-center">
+</a>
+<a href="/articles/" class="ml-4 inline-flex text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 rounded text-lg">Read
+articles</a>
+
+</div>
+</div>
+
+
+<!-- 
+<div class="lg:max-w-lg lg:w-full mb-5 md:mb-0 md:w-1/2 w-3/6">
+<img class="object-cover object-center rounded" alt="hero" src="{% static 'images/rocket_4.jpg' %}">
+</div> -->
+
+
+<div class="image-container">
+    <img src="{% static 'images/rocket_4.jpg' %}" alt="hero">
+</div>
+
+
+
+</div>
+
+
+
+</section>
+
+
+<section class=" body-font bg-gray-50 dark:bg-slate-800">
+<div class="container px-5 py-24 mx-auto">
+<div class="flex flex-col text-center w-full mb-20">
+<h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900  dark:text-gray-100">Latest articles</h1>
+</div>
+
+
+
+<div class="flex flex-wrap -m-4 ">
+<section class="body-font mx-auto overflow-hidden">
+<div class="flex xl:max-w-4xl px-8 py-10 mx-auto  flex-wrap -m-4">
+<ul class="divide-y  divide-gray-300 dark:divide-gray-600">
+
+
+    {% for article in articles %}
+<li class="py-12 ">
+
+<!-- <a href="/articles/category/django/"> -->
+<span class="inline-block py-1 px-3 rounded bg-emerald-100 mb-3 text-emerald-500 dark:bg-slate-700 dark:text-gray-300 text-xs font-medium tracking-widest">DJANGO</span>
+<!-- </a> -->
+
+<h2 class="text-2xl font-bold leading-8 tracking-tight"><a class="text-gray-900 dark:text-gray-100" href="{% url 'article_detail' article.id  %}">{{ article.title}}</a></h2>
+<div class="mt-5">{{ article.project_description }}</div>
+<div class="text-base font-medium mt-5 leading-6"><a class="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400" href="{% url 'article_detail' article.id  %}">Read more →</a>
+<p class="text-sm float-right font-medium leading-6 text-gray-500 dark:text-gray-400"> {{article.date}}</p></div>
+</li>
+
+    
+{% endfor %}
+    
+
+
+
+
+</ul>
+</div>
+</section>
+</div>
+
+
+
+<div class="mx-auto max-w-xs ">
+<a href="/articles/" class="px-8 py-2 mt-16 text-white bg-emerald-600 border-0 focus:outline-none hover:bg-emerald-600 rounded text-lg">view
+all</a>
+<div>
+</div>
+</div></div></section>
+</div>
+</div>
+</html>
+
+
+{% endblock content %}

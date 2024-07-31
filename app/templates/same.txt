@@ -1,0 +1,4 @@
+<script async="" src="{% static 'js/adsbygoogle.js' %}" crossorigin="anonymous"></script> -->
+<script async="" src="{% static 'js/adsbygoogle.js' %}" crossorigin="anonymous"></script>
+<script async="" src="{% static 'js/adsbygoogle.js' %}" crossorigin="anonymous"></script>
+<script async="" src="{% static 'js/adsbygoogle.js' %}" crossorigin="anonymous"></script>

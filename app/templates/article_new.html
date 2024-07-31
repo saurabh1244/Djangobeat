@@ -1,0 +1,447 @@
+{% load static %}
+
+<!DOCTYPE html><html lang="en" itemscope="" itemtype="https://schema.org/Article" class="dark"><head prefix="og: http://ogp.me/ns#">
+<meta name="description" content="In the realm of web development, Django stands as a powerful and versatile framework for building robust applications. One of the key aspects of developing e"><title>How to Use Subquery() in Django With Practical Examples</title><meta property="og:title" content="How to Use Subquery() in Django With Practical Examples"><meta property="og:description" content="In the realm of web development, Django stands as a powerful and versatile framework for building robust applications. One of the key aspects of developing e"><meta property="og:type" content="Article"><meta name="twitter:domain" content="localhost"><meta name="twitter:card" content="Summary"><meta name="twitter:title" content="How to Use Subquery() in Django With Practical Examples"><meta name="twitter:description" content="In the realm of web development, Django stands as a powerful and versatile framework for building robust applications. One of the key aspects of developing e"><meta itemprop="name" content="How to Use Subquery() in Django With Practical Examples"><meta itemprop="description" content="In the realm of web development, Django stands as a powerful and versatile framework for building robust applications. One of the key aspects of developing e">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link rel="icon" type="image/png" href="{% static 'images/favicon.png' %}">
+<script>
+                if (localStorage.theme === 'dark' || (!('theme' in localStorage))) {
+                    document.documentElement.classList.add('dark')
+                } else {
+                    document.documentElement.classList.remove('dark')
+                }
+
+                setInterval(function() {
+                    if (!window.adsbygoogle?.loaded) {
+                        document.getElementById('supportModal').showModal();
+                    }
+                }, 60000);
+
+
+            </script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-111350231-3"></script>
+<script defer="" src="{% static 'js/base.js' %}"></script>
+<script defer="" src="{% static 'js/alpinejs.js' %}"></script>
+<script async="" src="{% static 'js/adsbygoogle.js' %}" crossorigin="anonymous"></script>
+<script src="{% static 'js/monetization.js' %}" type="text/javascript"></script>
+<title>How to Use Subquery() in Django With Practical Examples</title>
+<link rel="stylesheet" href="{% static 'css/github-dark.min.css' %}">
+<script>
+        setInterval(function() {
+            if (!window.adsbygoogle?.loaded) {
+                document.getElementById('supportModal').showModal();
+            }
+        }, 60000);
+
+    </script>
+<script>
+        // JavaScript code for sticky header and completing line
+        document.addEventListener('DOMContentLoaded', function() {
+            const header = document.querySelector('.header');
+            const articleContent = document.querySelector('.article-content');
+            const completingLine = document.getElementById('completing-line');
+            let scrolledPercentage = 0;
+
+            function updateStickyHeader() {
+                header.classList.toggle('sticky', window.scrollY > 0);
+            }
+
+            function updateCompletingLine() {
+                const contentHeight = articleContent.offsetHeight;
+                const windowHeight = window.innerHeight;
+                const scrolled = window.scrollY;
+
+                if (contentHeight > windowHeight) {
+                    scrolledPercentage = (scrolled / (contentHeight - windowHeight)) * 100;
+                } else {
+                    scrolledPercentage = 100;
+                }
+
+                completingLine.style.width = scrolledPercentage + '%';
+            }
+
+            window.addEventListener('scroll', updateStickyHeader);
+            window.addEventListener('scroll', updateCompletingLine);
+        });
+    </script>
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body class="bg-gray-50 dark:bg-slate-800 dark:text-gray-300">
+<dialog id="supportModal" class="h-auto md:h-2/3 shadow-xl border-none w-11/12 md:w-1/2 p-5 bg-slate-900 rounded-md ">
+<div class="flex flex-col w-full h-auto ">
+
+<div class="flex w-full mx-auto h-auto justify-center items-center">
+<div class="flex w-10/12 h-auto py-3 justify-center mb-5">
+<h1 class="text-2xl text-white font-extrabold mx-auto leading-9 tracking-tight sm:text-4xl sm:leading-10 md:text-5xl md:leading-normal">Support Our Site</h1>
+</div>
+<div onclick="document.getElementById('supportModal').close();" class="flex w-1/12 h-auto justify-center cursor-pointer">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+</div>
+
+</div>
+
+<div class=" mt-5">
+<p class="md:text-2xl text-white tex-md font-medium">To ensure we can continue delivering content and maintaining a free platform for all users, we kindly request that you disable your adblocker. Your contribution greatly supports our site's growth and development.
+</p>
+</div>
+
+</div>
+</dialog>
+<div class="w-full sticky top-0 z-50 text-gray-700 bg-white dark:text-white dark:text-gray-200 dark:bg-slate-900">
+<div x-data="{ open: false }" class="flex flex-col max-w-screen-xl px-2 mx-auto md:items-center md:justify-between md:flex-row md:px-6 lg:px-8">
+<div class="p-4 flex flex-row items-center justify-between">
+<a href="/" class="flex title-font font-medium items-center text-gray-900">
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-10 h-10 text-white p-1 bg-emerald-600 rounded-full" viewBox="0 0 24 24">
+<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+<circle cx="12" cy="12" r="1"></circle>
+<path d="M16.924 11.132a5 5 0 1 0 -4.056 5.792"></path>
+<path d="M3 12a9 9 0 1 0 9 -9"></path>
+</svg>
+<span class="ml-3 font-bold text-xl dark:text-gray-100 ">Djangocentral</span>
+</a>
+<div class="mt-1 ml-4">
+<button type="button" aria-label="dark-mode-toggle" x-data="{
+                                        toggle: () => {
+                                        if (localStorage.theme === 'dark') {
+                                        localStorage.theme = 'light';
+                                        document.documentElement.classList.remove('dark');
+                                        } else {
+                                        localStorage.theme = 'dark';
+                                        document.documentElement.classList.add('dark');
+                                        }
+                                        },
+                                        }" @click="toggle" class="text-emerald-500 flex justify-center p-2 text-gray-500 transition duration-150 ease-in-out bg-gray-100 border border-transparent rounded-md lg:bg-white  dark:bg-slate-800   focus:outline-none bg-gray-50 dark:bg-slate-700 ">
+<span>
+<svg class="w-6 h-6 text-yellow-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd"></path>
+</svg>
+</span>
+</button>
+</div>
+<button aria-label="mobile-menu" class="md:hidden rounded-lg focus:outline-none focus:shadow-outline" @click="open = !open">
+<svg fill="currentColor" viewBox="0 0 20 20" class="w-6 h-6">
+<path x-show="!open" fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM9 15a1 1 0 011-1h6a1 1 0 110 2h-6a1 1 0 01-1-1z" clip-rule="evenodd"></path>
+<path x-show="open" fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+</svg>
+</button>
+</div>
+<nav :class="{'flex': open, 'hidden': !open}" class="flex-col flex-grow pb-4 md:pb-0 hidden md:flex md:justify-end md:flex-row">
+<a class="md:mt-0 mt-3 px-3 py-2" href="/articles/">Articles</a>
+<a class=" md:mt-0 mt-3 px-3 py-2" href="/madewithdjango/all/">MadewithDjango</a>
+<a class=" md:mt-0 mt-3 px-3 py-2" href="/books/all/">Books</a>
+<a class=" md:mt-0 mt-3 px-3 py-2" href="/podcasts/all/">Podcasts</a>
+<a class=" md:mt-0 mt-3 px-3 py-2" href="/courses/all/">Courses</a>
+<a class=" md:mt-0 mt-3 px-3 py-2" href="/tools/notepad/">Notepad</a>
+</nav>
+</div>
+</div>
+<div class="content overflow-hidden">
+<div class="dark:bg-slate-800 dark:text-gray-300">
+<div id="completing-line" class="h-1 bg-emerald-600 fixed top-0 left-0 w-0 z-50"></div>
+<section class="overflow-hidden bg-white dark:bg-slate-800">
+<div class="prose dark:prose-dark max-w-3xl px-4 py-10 mx-auto sm:px-6 xl:max-w-4xl xl:px-0">
+<div class="pb-10 space-y-1 text-center md:mt-10 border-b border-gray-200 dark:border-gray-500">
+<h1 class="text-3xl font-extrabold mx-auto leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-5xl md:leading-normal">
+How to Use Subquery() in Django With Practical Examples
+</h1>
+<p class="float-right text-lg leading-6 text-gray-500 dark:text-gray-400">4 min read</p>
+</div>
+<div class="m-3">
+<script async="" src="js/adsbygoogle.js" crossorigin="anonymous"></script>
+
+<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-6198408027063356" data-ad-slot="2737609592" data-ad-format="auto" data-full-width-responsive="true"></ins>
+<script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+</div>
+<div class="pt-10 pb-8 max-w-none leading-loose text-base">
+<div class="bg-slate-900 p-5 md:p-10">
+<h2 class="text-gray-200">Table of Contents</h2>
+
+<ul><ul><li><a href="#understanding-subqueries">Understanding Subqueries</a></li><li><a href="#practical-examples-of-subquery-usage">Practical Examples of Subquery Usage</a></li><li><a href="#filtering-based-on-subquery">Filtering Based on Subquery</a></li><li><a href="#outerref">OuterRef</a></li><li><a href="#annotating-with-subqueries">Annotating with Subqueries</a></li><li><a href="#subqueries-vs-non-subquery-which-is-better">Subqueries vs. Non-Subquery: Which is Better?</a></li><li><a href="#conclusion">Conclusion</a></li></ul></ul>
+</div>
+<div class="article-content">
+<p>In the realm of web development, Django stands as a powerful and versatile framework for building robust applications. One of the key aspects of developing efficient and optimized web applications is handling database queries effectively. In this article, we will delve into the world of subqueries in Django, exploring their significance, practical examples of their usage, and a comparison between subquery and non-subquery approaches.</p><div class="m-5">
+<script async="" src="js/adsbygoogle.js" crossorigin="anonymous"></script>
+<ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-6198408027063356" data-ad-slot="9494589631"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div><h2 id="understanding-subqueries">Understanding Subqueries</h2><p><strong></strong></p><p>A subquery, also known as a nested query, is a query embedded within another query. It enables developers to retrieve data from one table based on the results of another query. Subqueries facilitate complex filtering, aggregating, and joining of data, which can lead to more concise and efficient code.</p><p></p><h2 id="practical-examples-of-subquery-usage">Practical Examples of Subquery Usage</h2><p>Let's look at some practical usage of <code>Subquery()</code> in Django.</p><h2 id="filtering-based-on-subquery">Filtering Based on Subquery</h2><p>Suppose we have two models: <code>Author</code> and <code>Book</code>, where an author can have multiple books. We want to find authors who have written books published in the last year.</p><p>This code snippet demonstrates how to use a subquery in Django to retrieve authors who have written books published within the last year. It then provides an equivalent non-subquery approach for comparison.</p><pre><code>from datetime import datetime, timedelta
+from django.db.models import Subquery, OuterRef
+
+last_year = datetime.now() - timedelta(days=365)
+
+# Using Subquery
+recent_books = Book.objects.filter(published_date__gte=last_year)
+authors_with_recent_books = Author.objects.filter(id__in=Subquery(recent_books.values('author_id')))
+
+# Equivalent Non-Subquery Approach
+recent_books = Book.objects.filter(published_date__gte=last_year)
+author_ids = [book.author_id for book in recent_books]
+authors_with_recent_books = Author.objects.filter(id__in=author_ids)</code></pre><p></p><div class="m-5">
+<script async="" src="js/adsbygoogle.js" crossorigin="anonymous"></script>
+<ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-6198408027063356" data-ad-slot="9494589631"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div> <ol> <li> <p>First, the code imports necessary modules:</p> <ul> <li><code>datetime</code> and <code>timedelta</code> from the <code>datetime</code> module to work with dates.</li> <li><code>Subquery</code> and <code>OuterRef</code> from <code>django.db.models</code> for subquery and outer reference functionality.</li> </ul> </li> <li> <p><code>last_year</code> is calculated using the current date (<code>datetime.now()</code>) minus a <code>timedelta</code> of 365 days. This represents the date from one year ago.</p> </li> <li> <p>Using Subquery Approach:</p> <ul> <li><code>recent_books</code> is a queryset of <code>Book</code> objects filtered to retrieve books published on or after <code>last_year</code>.</li> <li><code>authors_with_recent_books</code> is a queryset of <code>Author</code> objects filtered to include only those authors whose <code>id</code> is present in the subquery result obtained from <code>recent_books</code>.</li> </ul> </li> <li> <p>Equivalent Non-Subquery Approach:</p> <ul> <li>Here, the same filtering of <code>recent_books</code> is done as in the subquery approach.</li> <li>An empty list <code>author_ids</code> is created to store author IDs.</li> <li>A loop iterates through each book in <code>recent_books</code> and appends its <code>author_id</code> to <code>author_ids</code>.</li> <li><code>authors_with_recent_books</code> is a queryset of <code>Author</code> objects filtered to include only those authors whose <code>id</code> is present in the <code>author_ids</code> list.</li> </ul> </li> </ol> <p>In both approaches, the goal is to retrieve a queryset of authors who have written books published within the last year.</p><h2 id="outerref">OuterRef</h2><p><code>OuterRef</code> is a powerful tool provided by Django that allows you to reference a value from the outer query within a subquery. It is especially useful when you want to perform filtering or lookups based on values from the outer query.</p><p>In the given code snippet:</p><div class="m-5">
+<script async="" src="js/adsbygoogle.js" crossorigin="anonymous"></script>
+<ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-6198408027063356" data-ad-slot="9494589631"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div><ul><li>In the subquery approach, <code>OuterRef('pk')</code> is used to reference the primary key of the <code>Author</code> model in the subquery. It's used within the subquery to filter the books for each author in the outer query.</li><li>The subquery approach efficiently filters the authors directly in the database without needing to retrieve all the author IDs and then filter the authors based on those IDs, as done in the non-subquery approach.</li></ul><p>Using <code>OuterRef</code> along with subqueries can help optimize database queries and reduce the number of database hits, leading to better performance in certain scenarios.</p><h2 id="annotating-with-subqueries">Annotating with Subqueries</h2><p>Let's say we want to find authors along with the count of their books.</p><pre><code>from django.db.models import Count
+
+# Using Subquery
+authors_with_book_count = Author.objects.annotate(book_count=Subquery(Book.objects.filter(author=OuterRef('pk')).values('author').annotate(count=Count('id')).values('count')))
+
+# Equivalent Non-Subquery Approach
+authors = Author.objects.all()
+authors_with_book_count = []
+for author in authors:
+    book_count = Book.objects.filter(author=author).count()
+    authors_with_book_count.append({'author': author, 'book_count': book_count})</code></pre><p>Here's how the subquery approach works:<br></p> <ol> <li> <p><code>Author.objects.annotate(...)</code> is used to annotate the queryset of <code>Author</code> objects with additional data, which in this case is the book count.</p> </li> <li> <p><code>Subquery(...)</code> is used to create a subquery. This subquery calculates the book count for each author and returns it as a subquery result.</p> </li> <li> <p>Inside the subquery:</p> <ul> <li><code>Book.objects.filter(author=OuterRef('pk'))</code> filters the <code>Book</code> objects based on the current <code>Author</code> being processed in the outer query. The <code>OuterRef('pk')</code> references the primary key of the <code>Author</code> in the outer query.</li> <li><code>.values('author')</code> groups the filtered <code>Book</code> objects by the author.</li> <li><code>.annotate(count=Count('id'))</code> annotates each group with the count of <code>Book</code> objects using the <code>Count</code> aggregation function on the <code>id</code> field.</li> <li><code>.values('count')</code> extracts the book count for each author.</li> </ul> </li> <li> <p>The result of the subquery is used to annotate the <code>Author</code> objects with the calculated book count.</p><div class="m-5">
+<script async="" src="js/adsbygoogle.js" crossorigin="anonymous"></script>
+<ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-6198408027063356" data-ad-slot="9494589631"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div></li></ol><p>Both approaches aim to achieve the same goal: annotating authors with their book counts. The subquery approach achieves this with a single database query by utilizing the power of subqueries and annotations, resulting in potentially better performance. </p><p>The non-subquery approach, while simpler, requires multiple database queries (one for each author), which might result in more database hits and potentially slower performance, especially for larger datasets.</p><h2 class="" id="subqueries-vs-non-subquery-which-is-better">Subqueries vs. Non-Subquery: Which is Better?</h2><p><strong></strong></p><p>Both subquery and non-subquery approaches have their merits. Subqueries are powerful and can lead to more optimized queries, especially when dealing with complex filtering and aggregation. They often result in fewer database hits, enhancing performance.<br></p><p>However, non-subquery methods might be more straightforward for smaller datasets or less complex scenarios. They can also be easier to understand for developers who are new to Django or database optimization.</p><h2 class="" id="conclusion">Conclusion</h2><p><strong></strong></p><p>Subqueries in Django offer a potent tool for optimizing database queries, streamlining code, and enhancing application performance. While both subquery and non-subquery approaches have their place, subqueries shine in scenarios involving complex filtering, aggregation, and annotation. As you delve into the world of Django development, mastering subqueries can undoubtedly elevate your database querying skills and lead to more efficient and maintainable code.</p><div class="m-5">
+<script async="" src="js/adsbygoogle.js" crossorigin="anonymous"></script>
+<ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-6198408027063356" data-ad-slot="9494589631"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div><p>Remember, the choice between subquery and non-subquery methods should be based on the specific needs of your application and the complexity of your data retrieval tasks.</p><p></p>
+</div>
+<br>
+<div class="m-3"><script async="" src="js/adsbygoogle.js" crossorigin="anonymous"></script>
+
+<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-6198408027063356" data-ad-slot="2737609592" data-ad-format="auto" data-full-width-responsive="true"></ins>
+<script>
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script></div>
+<a href="/articles/category/django/">
+<span class="mt-5 inline-block py-1 px-3 rounded bg-emerald-100 mb-3 text-emerald-500 dark:bg-slate-700 dark:text-gray-300 text-xs font-medium tracking-widest">DJANGO</span>
+</a>
+</div>
+<div class="w-full ">
+<div class="border-b border-gray-200 pb-10 dark:border-gray-500 ">
+<div>
+<script async="" src="js/adsbygoogle.js" crossorigin="anonymous"></script>
+<ins class="adsbygoogle" style="display:block" data-ad-format="autorelaxed" data-ad-client="ca-pub-6198408027063356" data-ad-slot="8697880262"></ins>
+<script>
+                            (adsbygoogle = window.adsbygoogle || []).push({});
+                        </script>
+</div>
+</div>
+<div id="disqus_thread" class="pt-6 pb-6 py-20 text-base  text-center text-primary-500 hover:text-primary-600 dark:hover:text-primary-400 border-b border-gray-200 dark:border-gray-500">
+<button class="font-bold" x-data="" @click="disqus();return false;">Load Comments
+</button>
+</div>
+<div class="fixed flex-col hidden gap-3 right-8 bottom-8 md:flex">
+<button x-data="" @click="document.getElementById('disqus_thread').scrollIntoView({behavior: 'smooth', block: 'center' })" aria-label="Scroll To Comment" type="button" class="p-2 rounded-full text-white bg-emerald-600 hover:bg-emerald-800">
+<svg class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
+<path fill-rule="evenodd" d="M18 10c0 3.866-3.582 7-8 7a8.841 8.841 0 01-4.083-.98L2 17l1.338-3.123C2.493 12.767 2 11.434 2 10c0-3.866 3.582-7 8-7s8 3.134 8 7zM7 9H5v2h2V9zm8 0h-2v2h2V9zM9 9h2v2H9V9z" clip-rule="evenodd"></path>
+</svg>
+</button>
+<button x-data="" @click="window.scroll({top:0,left:0,behavior: 'smooth'})" aria-label="Scroll To Top" type="button" class="p-2 text-gray-500 transition-all bg-gray-200 rounded-full dark:text-gray-400 dark:bg-slate-700 dark:hover:bg-gray-600 hover:bg-gray-300">
+<svg class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
+<path fill-rule="evenodd" d="M3.293 9.707a1 1 0 010-1.414l6-6a1 1 0 011.414 0l6 6a1 1 0 01-1.414 1.414L11 5.414V17a1 1 0 11-2 0V5.414L4.707 9.707a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+</svg>
+</button>
+</div>
+</div></div></section>
+
+<section>
+<div class="container px-5 py-10 mx-auto">
+<div class="mb-20">
+<h1 class="sm:text-3xl text-2xl dark:text-gray-200 font-medium text-center title-font text-gray-900 mb-4">Latest Articles</h1>
+<p class="lg:w-2/3 mx-auto text-center leading-relaxed text-base dark:text-gray-300">Latest from djangocentral</p>
+<div class="container px-5 py-24">
+<div class="flex flex-wrap -m-12">
+<div class="p-12 md:w-1/2 flex flex-col items-start">
+<h2 class="text-gray-900 dark:text-gray-100 text-2xl font-bold leading-8 tracking-tight">DRF Serializer: Handling OrderedDict and Converting It to a Dictionary or JSON</h2>
+<div class="mt-5">In Django Rest Framework (DRF) tests, when you access serializer.data, you might encounter an OrderedDict instead of a regular dictionary. This behavior is intentional and reflects the design of DRF's serialization process.Understanding the Problem The u…</div>
+<div class="w-full">
+<div class="text-base font-medium mt-5 leading-6">
+<a class="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400" href="/drf-serializer-handling-ordereddict-and-converting-it-to-a-dictionary-or-json/">Read more →</a>
+<p class="text-sm float-right font-medium leading-6 text-gray-500 dark:text-gray-400">3 min read</p></div>
+</div>
+</div>
+<div class="p-12 md:w-1/2 flex flex-col items-start">
+<h2 class="text-gray-900 dark:text-gray-100 text-2xl font-bold leading-8 tracking-tight">Django Rest Framework CheetSheet: Mastering API Development</h2>
+<div class="mt-5">Django Rest Framework (DRF) is a powerful toolkit that makes building robust and scalable web APIs with Django a breeze. Whether you're a seasoned Django developer or a newcomer, having a comprehensive cheat sheet at your disposal can be a game-changer. …</div>
+<div class="w-full">
+<div class="text-base font-medium mt-5 leading-6">
+<a class="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400" href="/django-rest-framework-cheat-sheet/">Read more →</a>
+<p class="text-sm float-right font-medium leading-6 text-gray-500 dark:text-gray-400">5 min read</p></div>
+</div>
+</div>
+<div class="p-12 md:w-1/2 flex flex-col items-start">
+<h2 class="text-gray-900 dark:text-gray-100 text-2xl font-bold leading-8 tracking-tight">How to Perform NOT Queries in Django ORM</h2>
+<div class="mt-5">In Django, performing NOT queries allows you to exclude certain records from the query results based on specific conditions. The NOT operator, represented by the tilde (~) when used in conjunction with the Django ORM's Q object, helps you construct compl…</div>
+<div class="w-full">
+<div class="text-base font-medium mt-5 leading-6">
+<a class="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400" href="/how-to-perform-not-queries-in-django-orm/">Read more →</a>
+<p class="text-sm float-right font-medium leading-6 text-gray-500 dark:text-gray-400">3 min read</p></div>
+</div>
+</div>
+<div class="p-12 md:w-1/2 flex flex-col items-start">
+<h2 class="text-gray-900 dark:text-gray-100 text-2xl font-bold leading-8 tracking-tight">How to Perform OR Queries in Django ORM</h2>
+<div class="mt-5">Django is a popular web framework for Python that provides an intuitive and powerful Object-Relational Mapping (ORM) system. The Django ORM allows developers to interact with databases using Python classes and methods, abstracting away the underlying SQL…</div>
+<div class="w-full">
+<div class="text-base font-medium mt-5 leading-6">
+<a class="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400" href="/how-to-perform-or-queries-in-django-orm/">Read more →</a>
+<p class="text-sm float-right font-medium leading-6 text-gray-500 dark:text-gray-400">3 min read</p></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+<footer class="text-gray-600 body-font bg-white dark:bg-slate-900 ">
+<div class="container px-4 py-24 mx-auto">
+<div class="flex flex-wrap md:text-left  order-first">
+<div class="lg:w-1/4 md:w-1/2 w-full px-4">
+<h2 class="font-semibold text-gray-900 dark:text-gray-100  text-lg mb-3">Resources</h2>
+<ul class="list-none mb-10 ">
+<li class="my-2">
+<a href="/sitemap.xml/" class="text-gray-600 dark:text-gray-300 dark:hover:text-gray-100 hover:text-gray-800">Sitemap</a>
+</li>
+<li class="my-2">
+<a href="/feed/" class="text-gray-600 dark:text-gray-300 dark:hover:text-gray-100 hover:text-gray-800">RSS feed</a>
+</li>
+<li class="my-2">
+<a href="https://github.com/TheAbhijeet/djangocentral-bugs-and-features" target="_blank" rel="nofollow noopener" class="text-gray-600 dark:text-gray-300 dark:hover:text-gray-100 hover:text-gray-800">Feature request</a>
+</li>
+<li class="my-2">
+<a href="https://github.com/TheAbhijeet/djangocentral-bugs-and-features" target="_blank" rel="nofollow noopener" class="text-gray-600 dark:text-gray-300 dark:hover:text-gray-100 hover:text-gray-800">Report bug</a>
+</li>
+</ul>
+</div>
+<div class="lg:w-1/4 md:w-1/2 w-full px-4">
+<h2 class="font-semibold text-gray-900 dark:text-gray-100  text-lg mb-3">Pages</h2>
+<ul class="list-none mb-10 ">
+<li class="my-2">
+<a href="/pages/about-us/" class="text-gray-600 dark:text-gray-300 dark:hover:text-gray-100 hover:text-gray-800">About us</a>
+</li>
+<li class="my-2">
+<a href="/pages/contact-us/" class="text-gray-600 dark:text-gray-300 dark:hover:text-gray-100 hover:text-gray-800">Contact us</a>
+</li>
+<li class="my-2">
+<a href="/pages/privacy-policy/" class="text-gray-600 dark:text-gray-300 dark:hover:text-gray-100 hover:text-gray-800">Privacy policy</a>
+</li>
+<li class="my-2">
+<a href="/pages/terms-and-conditions/" class="text-gray-600 dark:text-gray-300 dark:hover:text-gray-100 hover:text-gray-800">Terms and conditions </a>
+</li>
+</ul>
+</div>
+<div class="lg:w-1/4 md:w-1/2 w-full px-4">
+<h2 class="font-semibold text-gray-900 dark:text-gray-100  text-lg mb-3">Explore</h2>
+<ul class="list-none mb-10">
+<li class="my-2">
+<a class="dark:text-gray-300 dark:hover:text-gray-100 text-gray-600 hover:text-gray-800" href="/articles/">Articles</a>
+</li>
+<li class="my-2">
+<a class="dark:text-gray-300 dark:hover:text-gray-100 text-gray-600 hover:text-gray-800" href="/madewithdjango/all/">MadewithDjango</a>
+</li>
+<li class="my-2">
+<a class="dark:text-gray-300 dark:hover:text-gray-100 text-gray-600 hover:text-gray-800" href="/books/all/">Books</a>
+</li>
+<li class="my-2">
+<a class="dark:text-gray-300 dark:hover:text-gray-100 text-gray-600 hover:text-gray-800" href="/courses/all/">Courses</a>
+</li>
+<li class="my-2">
+<a class="dark:text-gray-300 dark:hover:text-gray-100 text-gray-600 hover:text-gray-800" href="/tools/notepad/">Notepad</a>
+</li>
+</ul>
+</div>
+<div class="lg:w-1/4 md:w-1/2 w-full px-4">
+<h2 class="font-semibold text-gray-900 dark:text-gray-100  text-lg mb-3">MadewithDjango</h2>
+<ul class="list-none mb-10">
+<li class="my-2">
+<a class="dark:text-gray-300 dark:hover:text-gray-100 text-gray-600 hover:text-gray-800" href="/madewithdjango/submit-project/">Submit a project</a>
+</li>
+<li class="my-2">
+<a class="dark:text-gray-300 dark:hover:text-gray-100 text-gray-600 hover:text-gray-800" href="/madewithdjango/tag/social-media">Social Media</a>
+</li>
+<li class="my-2">
+<a class="dark:text-gray-300 dark:hover:text-gray-100 text-gray-600 hover:text-gray-800" href="/madewithdjango/open-sourced/">Open Source projects</a>
+</li>
+<li class="my-2">
+<a class="dark:text-gray-300 dark:hover:text-gray-100 text-gray-600 hover:text-gray-800" href="/madewithdjango/tag/edtech">Edtech</a>
+</li>
+<li class="my-2">
+<a class="dark:text-gray-300 dark:hover:text-gray-100 text-gray-600 hover:text-gray-800" href="/madewithdjango/tag/fintech">Fintech</a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div class="bg-gray-100 dark:bg-slate-800">
+<div x-data="{ year: new Date().getFullYear() }" class="container px-5 py-6 lg:mx-auto flex items-center sm:flex-row flex-col">
+<p aria-label="copyright" class="text-sm text-gray-500 dark:text-gray-400 sm:ml-6 sm:mt-0 mt-4">© <span x-text="year"></span> —
+</p><p class="text-gray-600 dark:text-gray-400 ml-1" target="_blank">djangocentral |
+<span class="text-xs"> Djangocentral is not associated with the DSF | Django is a registered trademark of the Django Software Foundation </span></p>
+<p></p>
+</div>
+</div>
+<div class="fixed flex-col hidden gap-3 right-8 bottom-8 md:flex">
+<button x-data="" @click="window.scroll({top:0,left:0,behavior: 'smooth'})" aria-label="Scroll To Top" type="button" class="p-2  rounded-full text-white bg-emerald-600 hover:bg-emerald-800">
+<svg class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
+<path fill-rule="evenodd" d="M3.293 9.707a1 1 0 010-1.414l6-6a1 1 0 011.414 0l6 6a1 1 0 01-1.414 1.414L11 5.414V17a1 1 0 11-2 0V5.414L4.707 9.707a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+</svg>
+</button>
+</div>
+</footer>
+<script>
+            (function(){
+                if(typeof _bsa !== 'undefined' && _bsa) {
+                    _bsa.init('flexbar', 'CWYDP27N', 'placement:djangocentralcom');
+                }
+            })();
+        </script>
+<script src="js/highlight.min.js"></script>
+<script src="js/highlightjs-copy.min.js"></script>
+<script>
+        hljs.addPlugin(new CopyButtonPlugin());
+
+        hljs.highlightAll();
+
+    </script>
+<script type="text/javascript">
+
+        var disqus_shortname = "https-djangocentral-com";
+
+        
+        var disqus_url = "http://djangocentral.com/how-to-use-subquery-in-django/";
+        var disqus_identifier = "http://djangocentral.com/how-to-use-subquery-in-django/";
+
+        var disqus_loaded = false;
+        function disqus() {
+
+            if (!disqus_loaded)  {
+                // This is to ensure that Disqus widget is loaded only once
+                disqus_loaded = true;
+
+                var e = document.createElement("script");
+                e.type = "text/javascript";
+                e.async = true;
+                e.src = "//" + disqus_shortname + ".disqus.com/embed.js";
+                (document.getElementsByTagName("head")[0] ||
+                    document.getElementsByTagName("body")[0])
+                    .appendChild(e);
+            }
+        }
+    </script>
+
+
+</body></html>

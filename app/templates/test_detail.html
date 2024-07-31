@@ -1,0 +1,132 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+
+{% block content %}
+
+
+{% if article %}
+
+<div>
+    <h1>Articles :</h1>
+        
+        
+
+        {{article}}  <br/>
+        {{article.title}}  <br/>
+        {{article.author}}  <br/>
+        {{article.date}}  <br/>
+        {{article.project}} <br/>
+           
+       
+
+
+           
+</div>
+    
+{% endif %}
+    
+
+
+<br /> <br />  <br />  <br />
+
+
+{% if project %}
+
+
+<div>
+    <h1>Project :</h1>
+
+
+    {{project}}
+
+
+    {{project.asgi|linebreaks }}   <br/>
+    {{project.asgi_context|linebreaks }}   <br/> <br/>
+    
+    {{project.settings|linebreaks}}  <br/> 
+    {{project.settings_context|linebreaks }}   <br/> <br/>
+
+    {{project.urls|linebreaks}}  <br/>
+    {{project.urls_context|linebreaks }}   <br/>  <br/>
+
+    {{project.wsgi|linebreaks}} <br/> 
+    {{project.wsgi_context|linebreaks }}   <br/> <br/>
+       
+   
+       
+</div>
+
+    
+{% endif %}
+    
+
+<br /> <br />  <br />  <br />
+
+
+
+{% if startapp %}
+
+
+<div>
+    <h1>Startapp :</h1>
+         
+    
+
+    {{startapp}}  <br/>
+
+
+    {{startapp.admin|linebreaks}}  <br/>
+    {{startapp.startapp_context|linebreaks }}   <br/> <br/>
+
+    {{startapp.apps|linebreaks}}  <br/>
+    {{startapp.apps_context|linebreaks }}   <br/> <br/>
+
+    {{startapp.model|linebreaks}}  <br/>
+    {{startapp.model_context|linebreaks }}   <br/> <br/>
+
+    {{startapp.urls|linebreaks}} <br/>
+    {{startapp.urls_context|linebreaks }}   <br/> <br/>
+
+    {{startapp.views|linebreaks}} <br/>
+    {{startapp.views_context|linebreaks }}   <br/> <br/>
+       
+   
+       
+</div>
+
+    
+{% endif %}
+    
+
+
+<br /> <br />  <br />  <br />
+
+
+
+{% if templates %}
+
+
+<div>
+
+    <h1>Template :</h1>
+         
+
+    {{template}}
+
+    {{template.startapp_name|linebreaks}}
+    {{template.html_name|linebreaks}}
+    {{template.html_data|linebreaks}}
+       
+       
+</div>
+
+    
+{% endif %}
+    
+
+
+
+
+{% endblock %}

@@ -1,0 +1,89 @@
+
+{% extends 'base.html' %}
+
+{% load static %}
+
+
+{% block content %}
+
+
+<div class="prose dark:prose-dark max-w-3xl px-4 py-10 mx-auto sm:px-6 xl:max-w-4xl xl:px-0">
+
+
+
+   <div class="pb-10 space-y-1 text-center md:mt-10 border-b border-gray-200 dark:border-gray-500">
+
+
+
+
+        <h1 class="text-3xl font-extrabold mx-auto leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-5xl md:leading-normal">
+        
+            All Articles 
+        </h1>
+
+
+
+        <div class="relative max-w-lg mx-auto">
+            <form  method="post">
+                {% csrf_token %}
+            <input name="search"  value="" type="text" placeholder="Search articles" class=" block w-full px-4 py-5 text-gray-900 bg-white border border-gray-300 rounded-md dark:border-gray-900 focus:ring-primary-500 focus:border-primary-500 dark:bg-slate-900 dark:text-gray-100">
+
+            <button type="submit" class="absolute right-0 top-0 mt-3 mr-4 text-blue-500"><i class="fas fa-search"></i></button>
+            
+            </path>
+            </svg>
+            </form>
+            </div>
+
+    </div>
+
+
+
+
+    <div class="flex flex-wrap -m-4 ">
+        <section class="body-font mx-auto overflow-hidden">
+        <div class="flex xl:max-w-4xl px-8 py-10 mx-auto  flex-wrap -m-4">
+        <ul class="divide-y  divide-gray-300 dark:divide-gray-600">
+        
+        
+            {% for article in articles %}
+        <li class="py-12 ">
+        
+        <!-- <a href="/articles/category/django/"> -->
+        <span class="inline-block py-1 px-3 rounded bg-emerald-100 mb-3 text-emerald-500 dark:bg-slate-700 dark:text-gray-300 text-xs font-medium tracking-widest">DJANGO</span>
+        <!-- </a> -->
+        
+        <h2 class="text-2xl font-bold leading-8 tracking-tight"><a class="text-gray-900 dark:text-gray-100" href="{% url 'article_detail' article.id  %}">{{ article.title}}</a></h2>
+        <div class="mt-5">{{ article.project_description }}</div>
+        <div class="text-base font-medium mt-5 leading-6"><a class="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400" href="{% url 'article_detail' article.id  %}">Read more →</a>
+        <p class="text-sm float-right font-medium leading-6 text-gray-500 dark:text-gray-400"> {{article.date}}</p></div>
+        </li>
+        
+            
+        {% endfor %}
+            
+        
+        
+        
+        
+        </ul>
+        </div>
+        </section>
+        </div>
+
+
+
+      
+
+
+</div>
+
+
+
+
+
+
+    
+{% endblock content %}
+    
+    
